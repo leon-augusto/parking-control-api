@@ -31,13 +31,13 @@ public class ParkingSpotController {
 
     @PostMapping
     public ResponseEntity<Object> saveParkingSpot(@RequestBody @Valid ParkingSpotDto parkingSpotDto) {
-        if(parkingSpotService.existsByLicensePlateCar(parkingSpotDto.getLicensePlateCar())){
+        if(parkingSpotService.existsByLicensePlateCar(parkingSpotDto.licensePlateCar())){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: License Plate Car is already in use!");
         }
-        if(parkingSpotService.existsByParkingSpotNumber(parkingSpotDto.getParkingSpotNumber())){
+        if(parkingSpotService.existsByParkingSpotNumber(parkingSpotDto.parkingSpotNumber())){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Parking Spot is already in use");
         }
-        if(parkingSpotService.existsByApartmentAndBlack(parkingSpotDto.getApartment(), parkingSpotDto.getBlock())){
+        if(parkingSpotService.existsByApartmentAndBlack(parkingSpotDto.apartment(), parkingSpotDto.block())){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Parking Spot already registered for this apartment/block!");
         }
 
